@@ -1,0 +1,15 @@
+/*
+Scroll Style
+*/
+
+::-webkit-scrollbar {
+    width: 11px;
+}
+
+::-webkit-scrollbar-track {
+    background: $background;
+}
+
+::-webkit-scrollbar-thumb {
+    background: $background;
+}
