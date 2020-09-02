@@ -1,0 +1,16 @@
+.main {
+    display: flex;
+    height: calc(100vh - 56px);
+}
+
+.main__sidebar {
+    min-width: 320px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.main__body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}

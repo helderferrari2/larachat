@@ -1,0 +1,32 @@
+.user_chat {
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+}
+
+.user_avatar img {
+    height: 50px;
+    width: 50px;
+}
+
+.user_description {
+    flex-grow: 1;
+    margin-left: 20px;
+    padding: 10px;
+}
+
+.nav-item a {
+    color: $secondary;
+}
+
+.user_list .nav-item a:hover {
+    color: $secondary;
+    border-right: 5px solid $primary;
+    background-color: $background;
+    cursor: pointer;
+}
+
+.nav-link.active {
+    border-right: 5px solid $primary;
+    background-color: $background;
+}

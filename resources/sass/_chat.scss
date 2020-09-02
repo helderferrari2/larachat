@@ -1,0 +1,23 @@
+.chat-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    background: $background;
+}
+
+.chat-body {
+    padding: 20px;
+    height: calc(100vh - 126px);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.chat-footer {
+    background: $white;
+    padding: 15px 30px;
+    height: 70px;
+}
+
+.sidebar_filter {
+    margin: 20px 10px;
+}
