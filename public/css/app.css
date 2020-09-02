@@ -11024,3 +11024,7 @@ Scroll Style
   color: #fff;
 }
 
+textarea {
+  max-height: 100px;
+}
+

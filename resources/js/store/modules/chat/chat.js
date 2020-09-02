@@ -30,18 +30,6 @@ export default {
     },
 
     actions: {
-        getUserAuth(context) {
-            return new Promise((resolve, reject) => {
-                return axios
-                    .get("user/auth")
-                    .then(response => {
-                        context.commit("SET_USER_AUTH", response.data.data);
-                        resolve();
-                    })
-                    .catch(() => reject());
-            });
-        },
-
         fetchUsers(context) {
             return new Promise((resolve, reject) => {
                 return axios
@@ -90,12 +78,20 @@ export default {
             });
         },
 
+        setUserAuth(context, user) {
+            context.commit("SET_USER_AUTH", user);
+        },
+
         setReceiverUserId(context, user_id) {
             return context.commit("SET_RECEIVER_USER_ID", user_id);
         },
 
         clearMessages(context) {
             return context.commit("CLEAR_MESSAGES");
+        },
+
+        setMessage(context, message) {
+            return context.commit("SET_MESSAGE", message);
         }
     }
 };

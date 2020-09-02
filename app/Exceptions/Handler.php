@@ -5,17 +5,15 @@ namespace App\Exceptions;
 use App\Traits\ResponseTrait;
 use BadMethodCallException;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use InvalidArgumentException;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Throwable;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 
 class Handler extends ExceptionHandler
 {
@@ -66,7 +64,7 @@ class Handler extends ExceptionHandler
     {
         //Handle All Json Requests
         if (request()->wantsJson()) {
-            return $this->handleException($request, $exception);
+            // return $this->handleException($request, $exception);
         }
 
         return parent::render($request, $exception);
@@ -81,17 +79,17 @@ class Handler extends ExceptionHandler
 
         //TokenExpiredException
         if ($exception instanceof TokenExpiredException) {
-            return $this->errorResponse('unauthenticated', [],  401);
+            return $this->errorResponse('unauthenticated', [], 401);
         }
 
         //UnauthorizedHttpException
         if ($exception instanceof UnauthorizedHttpException) {
-            return $this->errorResponse('unauthenticated', [],  401);
+            return $this->errorResponse('unauthenticated', [], 401);
         }
 
         //ModelNotFoundException
         if ($exception instanceof ModelNotFoundException) {
-            return $this->errorResponse($exception->getMessage(), [],  404);
+            return $this->errorResponse($exception->getMessage(), [], 404);
         }
 
         //BadMethodCallException
@@ -111,7 +109,7 @@ class Handler extends ExceptionHandler
 
         //MethodNotAllowedHttpException
         if ($exception instanceof MethodNotAllowedHttpException) {
-            return $this->errorResponse('Method not allowed', [],  405);
+            return $this->errorResponse('Method not allowed', [], 405);
         }
 
         //Generic Method

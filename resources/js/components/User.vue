@@ -51,9 +51,7 @@ export default {
         },
 
         handleUserAvatar(avatar) {
-            return avatar != null
-                ? avatar
-                : require("@/assets/user_no_image.png");
+            return avatar ?? null;
         }
     }
 };

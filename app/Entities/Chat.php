@@ -36,7 +36,6 @@ class Chat extends Model implements Transformable
      */
     public function receiver()
     {
-        return $this->belongsTo('App\Entities\User', 'receiver_user_id', 'id');
+        return $this->belongsTo('App\Entities\User', 'sender_user_id', 'id');
     }
-
 }

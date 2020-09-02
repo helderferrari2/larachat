@@ -37,6 +37,7 @@
                         rows="1"
                         v-model="message"
                         @keydown="handleKeydownMessage"
+                        :disabled="!receiver_user_id"
                     ></textarea>
                 </div>
             </div>
@@ -50,6 +51,7 @@ import UserComponent from "../components/User";
 import MessageComponent from "../components/Message";
 
 export default {
+    props: ["user"],
     components: {
         UserComponent,
         MessageComponent
@@ -82,8 +84,12 @@ export default {
     },
 
     created() {
-        this.getUserAuth();
         this.fetchUsers();
+        this.setUserAuth();
+
+        Echo.private(`privateChat.${this.user.id}`).listen("MessageSent", e => {
+            this.$store.dispatch("setMessage", e.message);
+        });
     },
 
     watch: {
@@ -121,8 +127,8 @@ export default {
             this.message = "";
         },
 
-        getUserAuth() {
-            this.$store.dispatch("getUserAuth");
+        setUserAuth() {
+            this.$store.dispatch("setUserAuth", this.user);
         },
 
         fetchMessages() {
