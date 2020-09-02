@@ -12,11 +12,18 @@
                         class="rounded-circle"
                     />
                 </div>
-                <div
-                    class="message_content"
-                    :class="{ owner_message: item.owner }"
-                >
-                    {{ item.message }}
+                <div class="message_body">
+                    <div
+                        class="message_content"
+                        :class="{ owner_message: item.owner }"
+                    >
+                        {{ item.message }}
+                    </div>
+                    <div class="message_created">
+                        <span>{{
+                            item.created_at | moment("YYYY-MM-DD hh:mm:ss")
+                        }}</span>
+                    </div>
                 </div>
             </div>
         </div>

@@ -11012,10 +11012,8 @@ Scroll Style
 }
 
 .message_content {
-  max-width: 70%;
   background: #fff;
   padding: 10px;
-  margin-left: 20px;
   border-radius: 12px;
 }
 
@@ -11026,5 +11024,16 @@ Scroll Style
 
 textarea {
   max-height: 100px;
+}
+
+.message_body {
+  display: flex;
+  flex-direction: column;
+  max-width: 70%;
+  margin-left: 20px;
+}
+
+.message_created {
+  padding: 10px;
 }
 
