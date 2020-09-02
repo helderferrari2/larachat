@@ -17,6 +17,19 @@ use Illuminate\Support\Facades\Broadcast;
 //     return (int) $user->id === (int) $id;
 // });
 
+/*
+* Private Chat
+*/
+
 Broadcast::channel('privateChat.{id}', function ($user, $id) {
     return auth()->check();
+});
+
+/*
+* Chat
+*/
+Broadcast::channel('chat', function ($user) {
+    if (auth()->check()) {
+        return $user;
+    }
 });

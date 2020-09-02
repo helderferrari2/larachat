@@ -23,7 +23,7 @@
                         </div>
                         <div class="user_description">
                             <h5>{{ user.name }}</h5>
-                            <h6>Online</h6>
+                            <h6>{{ handleUserStatus(user.online) }}</h6>
                         </div>
                         <!-- <span class="badge badge-primary badge-pill">1</span> -->
                     </div>
@@ -51,7 +51,11 @@ export default {
         },
 
         handleUserAvatar(avatar) {
-            return avatar ?? null;
+            return avatar || "./assets/no_image.jpg";
+        },
+
+        handleUserStatus(status) {
+            return status ? "Online" : "Offline";
         }
     }
 };

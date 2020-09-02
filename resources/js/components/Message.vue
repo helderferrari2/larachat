@@ -53,7 +53,7 @@ export default {
         },
 
         handleUserAvatar(avatar) {
-            return avatar ?? null;
+            return avatar || "./assets/no_image.jpg";
         }
     }
 };

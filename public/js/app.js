@@ -1961,7 +1961,7 @@ __webpack_require__.r(__webpack_exports__);
       }, 10);
     },
     handleUserAvatar: function handleUserAvatar(avatar) {
-      return avatar !== null && avatar !== void 0 ? avatar : null;
+      return avatar || "./assets/no_image.jpg";
     }
   }
 });
@@ -2026,7 +2026,10 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.dispatch("setReceiverUserId", user_id);
     },
     handleUserAvatar: function handleUserAvatar(avatar) {
-      return avatar !== null && avatar !== void 0 ? avatar : null;
+      return avatar || "./assets/no_image.jpg";
+    },
+    handleUserStatus: function handleUserStatus(status) {
+      return status ? "Online" : "Offline";
     }
   }
 });
@@ -43967,7 +43970,7 @@ var render = function() {
                 _c("div", { staticClass: "user_description" }, [
                   _c("h5", [_vm._v(_vm._s(user.name))]),
                   _vm._v(" "),
-                  _c("h6", [_vm._v("Online")])
+                  _c("h6", [_vm._v(_vm._s(_vm.handleUserStatus(user.online)))])
                 ])
               ])
             ]
@@ -62556,10 +62559,70 @@ __webpack_require__.r(__webpack_exports__);
 /*!******************************!*\
   !*** ./resources/js/echo.js ***!
   \******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: handleUserBeforeSave, handleOnlineUsers, getUnique, removeUserAuth */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleUserBeforeSave", function() { return handleUserBeforeSave; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleOnlineUsers", function() { return handleOnlineUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUnique", function() { return getUnique; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeUserAuth", function() { return removeUserAuth; });
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./store/store */ "./resources/js/store/store.js");
 
+Echo.join("chat").here(function (users) {
+  // console.log("online", users);
+  var filtered = handleOnlineUsers(users);
+  _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].commit("SET_USERS", filtered);
+}).joining(function (user) {
+  // console.log("joining", user);
+  var users = handleUserBeforeSave(user, "joining");
+  _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].commit("SET_USERS", users);
+}).leaving(function (user) {
+  // console.log("leaving", user);
+  var users = handleUserBeforeSave(user, "leaving");
+  _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].commit("SET_USERS", users);
+});
+var handleUserBeforeSave = function handleUserBeforeSave(user, action) {
+  user.online = action == "joining" ? true : false;
+  var usersState = _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].state.chat.users;
+  usersState.unshift(user);
+  var unique = getUnique(usersState, "id");
+  return removeUserAuth(unique);
+};
+var handleOnlineUsers = function handleOnlineUsers(users) {
+  var usersState = _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].state.chat.users; //Set true for online users
+
+  var onlineUsers = users.filter(function (item) {
+    item.online = true;
+    return item;
+  });
+  Array.prototype.unshift.apply(usersState, onlineUsers);
+  var unique = getUnique(usersState, "id");
+  return removeUserAuth(unique);
+};
+var getUnique = function getUnique(arr, comp) {
+  // store the comparison  values in array
+  var unique = arr.map(function (e) {
+    return e[comp];
+  }) // store the indexes of the unique objects
+  .map(function (e, i, _final) {
+    return _final.indexOf(e) === i && i;
+  }) // eliminate the false indexes & return unique objects
+  .filter(function (e) {
+    return arr[e];
+  }).map(function (e) {
+    return arr[e];
+  });
+  return unique;
+};
+var removeUserAuth = function removeUserAuth(users) {
+  var userAuth = _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].state.chat.userAuth;
+  var filtered = users.filter(function (item) {
+    return item.id != userAuth.id;
+  });
+  return filtered;
+};
 
 /***/ }),
 

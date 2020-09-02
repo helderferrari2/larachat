@@ -51,8 +51,14 @@
                         </li>
                         @endif
                         @else
+
                         <li>
-                            <img src="{{ Auth::user()->avatar }}" alt="user-image" class="rounded-circle" style="width:40px;height:40px;" />
+                            @if ( auth()->user()->avatar)
+                            <img src="{{auth()->user()->avatar }}" alt="{{ auth()->user()->name }}" class="avatar_img rounded-circle">
+                            @else
+                            <img src="{{url('assets/user_no_image.png')}}" alt="{{ auth()->user()->name }}" class="avatar_img rounded-circle">
+                            @endif
+
                         </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

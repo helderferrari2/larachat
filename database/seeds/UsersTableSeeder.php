@@ -19,6 +19,13 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
+        User::create([
+            'name' => 'Fern Richards',
+            'email' => 'user2@email.com',
+            'avatar' => 'https://randomuser.me/api/portraits/men/7.jpg',
+            'password' => bcrypt('password'),
+        ]);
+
         factory(User::class, 5)->create();
     }
 }

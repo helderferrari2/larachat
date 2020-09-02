@@ -23,6 +23,16 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
+    protected $appends = ['online'];
+
+    /**
+     * Get online from message
+     */
+    public function getOnlineAttribute()
+    {
+        return $this->online = false;
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -31,5 +41,4 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token', 'email_verified_at', 'deleted_at',
     ];
-
 }
