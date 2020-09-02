@@ -8,6 +8,7 @@ require("./bootstrap");
 
 window.Vue = require("vue");
 import store from "./store/store";
+Vue.use(require("vue-moment"));
 
 //Global Components
 Vue.component("chat-component", require("./pages/Chat.vue").default);

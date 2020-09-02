@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\MessageSent;
 use App\Exceptions\CustomException;
 use App\Repositories\ChatRepository;
 use App\Traits\UserTrait;
@@ -29,8 +30,11 @@ class ChatService extends BaseService
         try {
             $data['sender_user_id'] = $this->getUserAuth()->id;
             $chat = $this->repository->create($data);
-            $chat->owner = true;
-            return $chat;
+
+            $message = $this->repository->with(['receiver'])->find($chat->id);
+
+            broadcast(new MessageSent($message))->toOthers();
+            return $message;
         } catch (Exception $e) {
             throw new CustomException('Unable complete the operation.', 400);
         }
